@@ -1,0 +1,33 @@
+html{
+  font-family: "Lato", sans-serif;
+}
+
+header {
+  background-color: #020533;
+  color: #faf4c8;
+
+  height: 5rem;
+  left: 0;
+  padding: 0 1.5rem;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+body{
+  background-color: #faf4c8;
+  margin: 8rem 1.5rem;
+}
+
+h2 {
+  color: #020533;
+}
+
+h3 {
+  color: #c8cefa;
+}
+
+.post {
+  border: 1rem #020533 ;
+  margin: 3rem 0;
+}
