@@ -1,6 +1,7 @@
-h1, h2, h3, p, a{
+html, body, h1, h2, h3, p, a{
   font-family: "Lato", sans-serif;
 }
+
 
 header {
   background-color: #020533;
@@ -14,17 +15,13 @@ header {
   width: 100%;
 }
 
-body{
-  background-color: #faf4c8;
-  margin: 8rem 1.5rem;
-}
-
-h2 a {
+.post-list-post-title {
   color: #020533;
 }
 
-h3 {
-  color: #c8cefa;
+body{
+  background-color: #faf4c8;
+  margin: 8rem 1.5rem;
 }
 
 .post {
