@@ -1,0 +1,28 @@
+{% load static %}
+
+<html>
+  <head>
+    <title>José's blog</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static "css/blog.css" %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+
+  </head>
+
+  <header>
+    <h1>This is José's blog!</h1>
+  </header>
+
+  <body>
+    <div class="content-container">
+      <div class="row">
+        <div class="col-md-8">
+          {% block content %}
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>

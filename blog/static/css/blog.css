@@ -1,4 +1,4 @@
-html{
+h1, h2, h3, p, a{
   font-family: "Lato", sans-serif;
 }
 
@@ -6,7 +6,7 @@ header {
   background-color: #020533;
   color: #faf4c8;
 
-  height: 5rem;
+  height: 8rem;
   left: 0;
   padding: 0 1.5rem;
   position: absolute;
@@ -19,7 +19,7 @@ body{
   margin: 8rem 1.5rem;
 }
 
-h2 {
+h2 a {
   color: #020533;
 }
 
