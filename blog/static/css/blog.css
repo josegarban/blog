@@ -53,6 +53,28 @@ body{
   /* Custom */
 }
 
+/* About Classes */
+
+.self-portrait img{
+  /* Custom */
+  height: 10rem;
+  width: auto;
+}
+
+.about-left{
+  /* Custom */
+  display: flex;
+  flex-flow: column;
+  align-items: flex-end;
+  justify-content: space-around;
+
+}
+
+.about-p{
+  /* Custom */
+  margin: 2rem 0;
+}
+
 /* Bootstrap Classes */
 
 .glyphicon-pencil{

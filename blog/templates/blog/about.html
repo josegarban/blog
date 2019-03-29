@@ -1,8 +1,23 @@
+<!DOCTYPE html>
 {% extends 'blog/base.html' %}
+{% load static %}
 
 {% block content %}
-    <div class="post">
-      <h2>About me</h2>
-      <p>Hi, I'm José!</p>
-    </div>
+    <div class="row">
+        <div class="col-sm-5">
+        </div>
+
+        <div class="col-sm-3 about-left">
+          <h2>About me</h2>
+          <div class="self-portrait">
+            <img src="{% static 'images/jose.jpg' %}" alt="José Garbán">
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="about-p">
+                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+            </div>
+        </div>
+
 {% endblock %}
