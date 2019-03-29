@@ -9,22 +9,39 @@ header {
 
   height: 8rem;
   left: 0;
-  padding: 0 1.5rem;
+  padding: 0 1.5rem 1rem 1.5rem;
   position: absolute;
   top: 0;
   width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header div{
+  display: flex;
+  align-items: center;
+}
+
+header span {
+  padding-top: 3rem;
+}
+
+.header-title{
+  color: #faf4c8;
+  /* Custom */
+}
+
+.header-anchor {
+  color: #faf4c8;
+  /* Custom */
 }
 
 body{
   background-color: #faf4c8;
   margin: 8rem 1.5rem;
 }
-
-.header-title {
-  color: #faf4c8;
-  /* Custom */
-}
-
 .post {
   border: 1rem #020533 ;
   margin: 3rem 0;
