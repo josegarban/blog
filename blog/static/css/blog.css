@@ -2,16 +2,6 @@ html, body, h1, h2, h3, p, a{
   font-family: "Lato", sans-serif;
 }
 
-.glyphicon-plus{
-  margin-top: 1rem;
-  font-size: 1.5rem;
-  font-family: "Lato", sans-serif;
-}
-
-.glyphicon-pencil{
-  font-size: 1.25rem;
-  font-family: "Lato", sans-serif;
-}
 
 header {
   background-color: #020533;
@@ -25,16 +15,40 @@ header {
   width: 100%;
 }
 
-.post-list-post-title {
-  color: #020533;
-}
-
 body{
   background-color: #faf4c8;
   margin: 8rem 1.5rem;
 }
 
+.header-title {
+  color: #faf4c8;
+  /* Custom */
+}
+
 .post {
   border: 1rem #020533 ;
   margin: 3rem 0;
+  /* Custom */
+}
+
+.post-list-post-title {
+  color: #020533;
+  /* Custom */
+}
+
+/* Bootstrap Classes */
+
+.glyphicon-pencil{
+  font-size: 1.25rem;
+  font-family: "Lato", sans-serif;
+}
+
+.glyphicon-plus{
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  font-family: "Lato", sans-serif;
+}
+
+.page-header{
+  border: none;
 }
