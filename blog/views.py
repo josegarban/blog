@@ -5,7 +5,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.utils import timezone
 from .forms import EmailPostForm, PostForm
 from .models import Post
-
+from . import readcredentials
 
 def post_list(request):
     object_list = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
@@ -97,7 +97,7 @@ def post_share(request, post_id):
                                                                     cleaneddata['comments'],)
             send_mail(subject,
                       message,
-                      'admin@myblog.com',
+                      readcredentials.readcredentials()[1],
                       [cleaneddata['to']])
             sent = True
             
