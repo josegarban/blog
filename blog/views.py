@@ -1,14 +1,27 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.utils import timezone
 from django.db import models
-from .models import Post
+from django.core.paginator import EmptyPage, Paginator, PageNotAnInteger
+from django.shortcuts import redirect, render, get_object_or_404 
+from django.utils import timezone
 from .forms import PostForm
+from .models import Post
 
 def post_list(request):
-    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    object_list = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    paginator = Paginator(object_list, 5) # posts per page
+    page = request.GET.get('page') # current page number
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer deliver the first page
+        posts = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range deliver last page of results
+        posts = paginator.page(paginator.num_pages)
+    
     return render(request,
                   'blog/post_list.html',
-                  {'posts': posts})
+                  {'page': page,
+                   'posts': posts})
 
 def post_detail(request, year, month, day, post):
     post = get_object_or_404(Post, slug=post,
@@ -36,8 +49,8 @@ def post_edit(request, year, month, day, post):
     else:
         form = PostForm(instance=post)
     return render(request,
-                  'blog/post_edit.html',
-                  {'form': form})
+                    'blog/post_edit.html',
+                    {'form': form})
 
 def post_new(request):
     if request.method == "POST":
@@ -57,4 +70,4 @@ def post_new(request):
     
 def about(request):
     return render(request,
-                  'about.html')
+                  'blog/about.html')
