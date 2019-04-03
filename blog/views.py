@@ -2,8 +2,9 @@ from django.db import models
 from django.core.paginator import EmptyPage, Paginator, PageNotAnInteger
 from django.shortcuts import redirect, render, get_object_or_404 
 from django.utils import timezone
-from .forms import PostForm
+from .forms import EmailPostForm, PostForm
 from .models import Post
+
 
 def post_list(request):
     object_list = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
@@ -23,6 +24,7 @@ def post_list(request):
                   {'page': page,
                    'posts': posts})
 
+
 def post_detail(request, year, month, day, post):
     post = get_object_or_404(Post, slug=post,
                              published_date__year=year,
@@ -31,6 +33,7 @@ def post_detail(request, year, month, day, post):
     return render(request,
                   'blog/post_detail.html',
                   {'post': post})
+
 
 def post_edit(request, year, month, day, post):
     post = get_object_or_404(Post, slug=post,
@@ -70,7 +73,40 @@ def post_new(request, year=timezone.now().year, month=timezone.now().month, day=
     return render(request,
                   'blog/post_edit.html',
                   {'form': form})
+
+
+def post_share(request, post_id):
+    post = get_object_or_404(Post,
+                             id=post_id,
+                             status='published')
+    sent = False
     
+    if request.method == 'POST': # Form submitted
+        form = EmailPostForm(request.POST)
+        if form.is_valid():
+            cleaneddata = form.cleaned_data
+            post_url = request.build_absolute_uri(post.get_absolute_url())
+            
+            subject = '{} ({}) recommends you reading "{}"'.format(cd['name'],
+                                                                   cd['email'],
+                                                                   post.title,)
+            message = 'Read "{}" at {}\n\n{}\'s comments:{}'.format(post.title,
+                                                                    post_url,
+                                                                    cd['name'],
+                                                                    cd['comments'],)
+            send_mail(subject,
+                      message,
+                      'admin@myblog.com',
+                      [cd['to']])
+            sent = True
+            
+        else:
+            form = EmailPostForm()
+    return render(request,
+                  'blog/post/share.html',
+                  {'post': post,'form': form,'sent': sent})
+
+
 def about(request):
     return render(request,
                   'blog/about.html')
