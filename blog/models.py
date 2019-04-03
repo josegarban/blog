@@ -30,7 +30,8 @@ class Post(models.Model):
                               default='draft')
     
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title) # Convert the title into a slug
+        if not self.slug:
+            self.slug = slugify(self.title) # Convert the title into a slug
         super(Post, self).save(*args, **kwargs)
     
     def publish(self):
