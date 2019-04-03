@@ -52,7 +52,7 @@ def post_edit(request, year, month, day, post):
                     'blog/post_edit.html',
                     {'form': form})
 
-def post_new(request):
+def post_new(request, year=timezone.now().year, month=timezone.now().month, day=timezone.now().day, post=""):
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
@@ -60,13 +60,13 @@ def post_new(request):
             post.author = request.user
             post.published_date = timezone.now()
             post.save()
-            return redirect('blog:post_detail',
-                            post.get_absolute_url())
+            return render(request, 'blog/post_detail.html',
+                          {'post': post})
     else:
         form = PostForm()
     return render(request,
-                  'blog/post_edit.html',
-                  {'form': form})
+                    'blog/post_edit.html',
+                    {'form': form})
     
 def about(request):
     return render(request,
