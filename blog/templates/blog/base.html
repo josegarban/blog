@@ -4,8 +4,6 @@
 <html>
   <head>
     <title>José's blog</title>
-    <!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> -->
-    <!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"> -->
     <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
     <link rel="stylesheet" href="{% static "css/bootstrap-theme.min.css" %}">
     <link rel="stylesheet" href="{% static "css/blog.css" %}">
@@ -15,10 +13,10 @@
 
   <header>
     <div class="header-left">
-      <h1 ><a class="header-title" href="{% url 'post_list'%}">This is José's blog!</a> </h1>
+      <h1 ><a class="header-title" href="{% url 'blog:post_list'%}">This is José's blog!</a> </h1>
     </div>
     <div class="header-right">
-      <span><a href="{% url 'about' %}" class="header-anchor">About me</a></span>
+      <span><a href="{% url 'blog:about' %}" class="header-anchor">About me</a></span>
     </div>
   </header>
 
@@ -36,3 +34,6 @@
   </body>
 
 </html>
+
+{% comment %} {% endcomment %}
+{# 'comment' #}
