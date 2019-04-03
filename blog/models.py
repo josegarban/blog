@@ -2,7 +2,9 @@
 
 from django.conf import settings
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
+from django.utils.text import slugify
 
 class PublishedManager(models.Manager):
     def get_queryset(self):
@@ -26,16 +28,20 @@ class Post(models.Model):
     status = models.CharField(max_length=10,
                               choices=STATUS_CHOICES,
                               default='draft')
-
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title) # Convert the title into a slug
+        super(Post, self).save(*args, **kwargs)
+    
     def publish(self):
         self.published_date = timezone.now()
         self.save()
     
     def get_absolute_url(self):
         return reverse('blog:post_detail',
-                       args=[self.publish.year,
-                             self.publish.month,
-                             self.publish.day,
+                       args=[self.published_date.year,
+                             self.published_date.month,
+                             self.published_date.day,
                              self.slug]
                        )
 
