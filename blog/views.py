@@ -19,25 +19,25 @@ def post_detail(request, year, month, day, post):
                   'blog/post_detail.html',
                   {'post': post})
 
-#def post_edit(request, year, month, day, post):
-#    post = get_object_or_404(Post, slug=post,
-#                             published_date__year=year,
-#                             published_date__month=month,
-#                             published_date__day=day)
-#    if request.method == "POST":
-#        form = PostForm(request.POST, instance=post)
-#        if form.is_valid():
-#            post = form.save(commit=False)
-#            post.author = request.user
-#            post.published_date = timezone.now()
-#            post.save()
-#            return redirect('post_detail',
-#                            post.get_absolute_url())
-#    else:
-#        form = PostForm(instance=post)
-#    return render(request,
-#                  'blog/post_edit.html',
-#                  {'form': form})
+def post_edit(request, year, month, day, post):
+    post = get_object_or_404(Post, slug=post,
+                             published_date__year=year,
+                             published_date__month=month,
+                             published_date__day=day)
+    if request.method == "POST":
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.published_date = timezone.now()
+            post.save()
+            return redirect('post_detail',
+                            post.get_absolute_url())
+    else:
+        form = PostForm(instance=post)
+    return render(request,
+                  'blog/post_edit.html',
+                  {'form': form})
 
 def post_new(request):
     if request.method == "POST":
