@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.mail import send_mail
 from django.core.paginator import EmptyPage, Paginator, PageNotAnInteger
 from django.shortcuts import redirect, render, get_object_or_404 
 from django.utils import timezone
@@ -87,23 +88,23 @@ def post_share(request, post_id):
             cleaneddata = form.cleaned_data
             post_url = request.build_absolute_uri(post.get_absolute_url())
             
-            subject = '{} ({}) recommends you reading "{}"'.format(cd['name'],
-                                                                   cd['email'],
+            subject = '{} ({}) recommends you reading "{}"'.format(cleaneddata['name'],
+                                                                   cleaneddata['email'],
                                                                    post.title,)
             message = 'Read "{}" at {}\n\n{}\'s comments:{}'.format(post.title,
                                                                     post_url,
-                                                                    cd['name'],
-                                                                    cd['comments'],)
+                                                                    cleaneddata['name'],
+                                                                    cleaneddata['comments'],)
             send_mail(subject,
                       message,
                       'admin@myblog.com',
-                      [cd['to']])
+                      [cleaneddata['to']])
             sent = True
             
-        else:
-            form = EmailPostForm()
+    else:
+        form = EmailPostForm()
     return render(request,
-                  'blog/post/share.html',
+                  'blog/post_share.html',
                   {'post': post,'form': form,'sent': sent})
 
 
