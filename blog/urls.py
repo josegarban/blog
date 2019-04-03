@@ -7,7 +7,7 @@ urlpatterns = [
     path('<int:year>/<int:month>/<int:day>/<slug:post>/',
          views.post_detail,
          name='post_detail'),
-    path('post/new/', views.post_new, name='post_new'),
+    path('new/', views.post_new, name='post_new'),
     path('<int:year>/<int:month>/<int:day>/<slug:post>/',
          views.post_edit,
          name='post_edit'),
