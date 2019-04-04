@@ -3,8 +3,8 @@ from django.core.mail import send_mail
 from django.core.paginator import EmptyPage, Paginator, PageNotAnInteger
 from django.shortcuts import redirect, render, get_object_or_404 
 from django.utils import timezone
-from .forms import EmailPostForm, PostForm
-from .models import Post
+from .forms import CommentForm, EmailPostForm, PostForm
+from .models import Comment, Post
 from . import readcredentials
 
 def post_list(request):
@@ -31,10 +31,29 @@ def post_detail(request, year, month, day, post):
                              published_date__year=year,
                              published_date__month=month,
                              published_date__day=day)
+    
+    # List of active comments for this post
+    comments = post.comments.filter(active=True)
+    
+    new_comment = None
+    if request.method == 'POST': # A comment was posted
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+        
+            new_comment.post = post # Assign the current post to the comment
+
+            new_comment.save() # Save the comment to the database
+    else:
+        comment_form = CommentForm()
+    
     return render(request,
                   'blog/post_detail.html',
-                  {'post': post})
-
+                  {'post': post,
+                   'comments': comments,
+                   'new_comment': new_comment,
+                   'comment_form': comment_form})
+    
 
 def post_edit(request, year, month, day, post):
     post = get_object_or_404(Post, slug=post,
