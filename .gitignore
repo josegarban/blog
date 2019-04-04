@@ -6,4 +6,6 @@ db.sqlite3
 /static
 .DS_Store
 notes
-mysite/credentials.txt
+credentials.txt
+blog/readcredentials.py
+mysite/readcredentials.py
