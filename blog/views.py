@@ -3,12 +3,19 @@ from django.core.mail import send_mail
 from django.core.paginator import EmptyPage, Paginator, PageNotAnInteger
 from django.shortcuts import redirect, render, get_object_or_404 
 from django.utils import timezone
+from taggit.models import Tag
 from .forms import CommentForm, EmailPostForm, PostForm
 from .models import Comment, Post
 from . import readcredentials
 
-def post_list(request):
+def post_list(request, tag_slug=None):
     object_list = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    
+    tag = None
+    if tag_slug:
+        tag         = get_object_or_404 (Tag, slug=tag_slug)
+        object_list = object_list.filter(tags__in=[tag])
+    
     paginator = Paginator(object_list, 5) # posts per page
     page = request.GET.get('page') # current page number
     try:
@@ -22,8 +29,9 @@ def post_list(request):
     
     return render(request,
                   'blog/post_list.html',
-                  {'page': page,
-                   'posts': posts})
+                  {'page' : page,
+                   'posts': posts,
+                   'tags' : tag   })
 
 
 def post_detail(request, year, month, day, post):
@@ -39,19 +47,17 @@ def post_detail(request, year, month, day, post):
     if request.method == 'POST': # A comment was posted
         comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():
-            new_comment = comment_form.save(commit=False)
-        
-            new_comment.post = post # Assign the current post to the comment
-
-            new_comment.save() # Save the comment to the database
+            new_comment        = comment_form.save(commit=False)
+            new_comment.post   = post # Assign the current post to the comment
+            new_comment.save()        # Save the comment to the database
     else:
         comment_form = CommentForm()
     
     return render(request,
                   'blog/post_detail.html',
-                  {'post': post,
-                   'comments': comments,
-                   'new_comment': new_comment,
+                  {'post'        : post,
+                   'comments'    : comments,
+                   'new_comment' : new_comment,
                    'comment_form': comment_form})
     
 
@@ -63,8 +69,8 @@ def post_edit(request, year, month, day, post):
     if request.method == "POST":
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
+            post                = form.save(commit=False)
+            post.author         = request.user
             post.published_date = timezone.now()
             post.save()
             return render(request,
@@ -81,8 +87,8 @@ def post_new(request, year=timezone.now().year, month=timezone.now().month, day=
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
+            post                = form.save(commit=False)
+            post.author         = request.user
             post.published_date = timezone.now()
             post.save()
             return render(request,
@@ -124,7 +130,9 @@ def post_share(request, post_id):
         form = EmailPostForm()
     return render(request,
                   'blog/post_share.html',
-                  {'post': post,'form': form,'sent': sent})
+                  {'post': post,
+                   'form': form,
+                   'sent': sent})
 
 
 def about(request):
