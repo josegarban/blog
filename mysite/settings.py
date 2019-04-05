@@ -27,7 +27,7 @@ SECRET_KEY = 'jqp(yv#f1fh#_x*wem0g^)1yle4cndoer_=^l3%!ttc@%)h$46'
 DEBUG = True
 
 ALLOWED_HOSTS = ["josegarban.pythonanywhere.com", "127.0.0.1"]
-
+SITE_ID = 1
 
 # Application definition
 
@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
     'blog',
     'taggit'
 ]
