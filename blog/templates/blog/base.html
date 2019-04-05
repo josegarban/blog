@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load blog_tags %}
 {% load static %}
 
 <html>
@@ -25,12 +26,19 @@
     </div>
     <div class="content-container">
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-9">
+
           {% block content %}
           {% endblock %}
         </div>
+        <div class="col-md-3" id="sidebar">
+          <p>This is my blog. I've written {% total_posts %} posts so far.</p>
+          <h3>Latest posts</h3>
+          {% show_latest_posts 3 %}
+        </div>
       </div>
     </div>
+
   </body>
 
 </html>

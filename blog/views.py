@@ -10,7 +10,7 @@ from .models import Comment, Post
 from . import readcredentials
 
 def post_list(request, tag_slug=None):
-    object_list = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    object_list = Post.publishedobjects.order_by('published_date')
     
     tag = None
     if tag_slug:

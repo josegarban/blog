@@ -9,7 +9,8 @@ from taggit.managers import TaggableManager
 
 class PublishedManager(models.Manager):
     def get_queryset(self):
-        return super(PublishedManager,self).get_queryset().filter(status='published')
+        return super(PublishedManager,self).get_queryset()\
+               .filter(status='published').filter(published_date__lte=timezone.now())
 
 class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL,
@@ -22,6 +23,9 @@ class Post(models.Model):
                             unique_for_date='published_date'
                             )
     tags = TaggableManager()
+    
+    objects = models.Manager() 
+    publishedobjects = PublishedManager() 
     
     STATUS_CHOICES = (
         ('draft', 'Draft'),
