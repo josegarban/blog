@@ -32,7 +32,7 @@ def post_list(request, tag_slug=None):
                   'blog/post_list.html',
                   {'page' : page,
                    'posts': posts,
-                   'tags' : tag   })
+                   'tag' : tag   })
 
 
 def post_detail(request, year, month, day, post):
