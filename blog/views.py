@@ -83,6 +83,7 @@ def post_edit(request, year, month, day, post):
             post.author         = request.user
             post.published_date = timezone.now()
             post.save()
+            form.save_m2m()
             return render(request,
                           'blog/post_detail.html',
                           {'post': post})
@@ -101,6 +102,7 @@ def post_new(request, year=timezone.now().year, month=timezone.now().month, day=
             post.author         = request.user
             post.published_date = timezone.now()
             post.save()
+            form.save_m2m()
             return render(request,
                           'blog/post_detail.html',
                           {'post': post})
