@@ -132,7 +132,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static_cdn')
 
 # ckeditor settings
 
-MEDIA_URL = ''
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media_cdn')
 
 CKEDITOR_UPLOAD_PATH = os.path.join(BASE_DIR, MEDIA_ROOT, 'ckeditor_media')
