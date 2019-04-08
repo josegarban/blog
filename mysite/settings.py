@@ -133,9 +133,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static_cdn')
 # ckeditor settings
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media_cdn')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-CKEDITOR_UPLOAD_PATH = os.path.join(BASE_DIR, MEDIA_ROOT, 'ckeditor_media')
+CKEDITOR_UPLOAD_PATH = MEDIA_ROOT
 CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
 CKEDITOR_IMAGE_BACKEND = 'pillow'
 
