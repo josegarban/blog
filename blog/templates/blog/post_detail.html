@@ -45,7 +45,7 @@
     var disqus_config = function () {
     this.page.url = 'https://josegarban.pythonanywhere.com/blog/{{post.published_date.year}}/{{post.published_date.month}}/{{post.published_date.day}}/{{post.slug}}/';  // Replace PAGE_URL with your page's canonical URL variable
     this.page.identifier = '/{{post.published_date.year}}/{{post.published_date.month}}/{{post.published_date.day}}/{{post.slug}}/';
-    this.page.title = "{% set_disqus_title object.headline %}"
+    this.page.title = "{{post.title}}";
     };
 
     (function() { // DON'T EDIT BELOW THIS LINE
@@ -59,16 +59,14 @@
 
     <script id="dsq-count-scr" src="//josegarban.disqus.com/count.js" async></script>
 
-    <p>
+    <div>
       <h2>Similar posts</h2>
       {% for post in similar_posts %}
-        <p>
-          <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-        </p>
+        <p><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></p>
       {% empty %}
-        There are no similar posts yet.
+        <p>There are no similar posts yet.</p>
       {% endfor %}
-    </p>
+    </div>
 
   </div>
 {% endblock %}
