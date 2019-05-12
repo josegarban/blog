@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 from . import readcredentials
 
+my_credentials = readcredentials.readcredentials()
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -21,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'jqp(yv#f1fh#_x*wem0g^)1yle4cndoer_=^l3%!ttc@%)h$46'
+SECRET_KEY = my_credentials[6]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -44,7 +45,6 @@ INSTALLED_APPS = [
     'taggit',
     'ckeditor',
     'ckeditor_uploader',
-    'disqus'
 ]
 
 MIDDLEWARE = [
@@ -140,7 +140,7 @@ CKEDITOR_IMAGE_BACKEND = 'pillow'
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-my_credentials = readcredentials.readcredentials()
+
 EMAIL_HOST = my_credentials[0]
 EMAIL_HOST_USER = my_credentials[1]
 EMAIL_HOST_PASSWORD = my_credentials[2]
