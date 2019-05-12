@@ -53,6 +53,22 @@ body{
   /* Custom */
 }
 
+.date-inlist {
+  margin-left: 2rem;
+  margin-top: 3.25rem;
+  /* Custom - Side panels in list */
+}
+
+.date-inpost {
+  margin-top: 4.25rem;
+  /* Custom - Side panels in posts */
+}
+
+.similar {
+  margin-top: 3.5rem;
+  /* Custom - Side panels in posts */
+}
+
 /* About Classes */
 
 .self-portrait img{
