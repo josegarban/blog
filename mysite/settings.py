@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'taggit',
     'ckeditor',
     'ckeditor_uploader',
+    'disqus'
 ]
 
 MIDDLEWARE = [
@@ -145,3 +146,5 @@ EMAIL_HOST_USER = my_credentials[1]
 EMAIL_HOST_PASSWORD = my_credentials[2]
 EMAIL_PORT = int(my_credentials[3])
 EMAIL_USE_TLS = True
+DISQUS_API_KEY = my_credentials[4]
+DISQUS_WEBSITE_SHORTNAME = my_credentials[5]

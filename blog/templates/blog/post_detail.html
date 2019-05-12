@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% extends 'blog/base.html' %}
+{% load disqus_tags %}
 
 {% block content %}
   <div class="post">
@@ -29,57 +30,45 @@
     <br>
     <p>{{ post.text|safe }}</p>
     <br>
+    <p>{% set_disqus_title object.headline %}</p>
     <p>
       <a href="{% url "blog:post_share" post.id %}">Share this post via e-mail</a>
     </p>
 
+    <div id="disqus_thread"></div>
+    <script>
+
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+    var disqus_config = function () {
+    this.page.url = 'https://josegarban.pythonanywhere.com/blog/{{post.published_date.year}}/{{post.published_date.month}}/{{post.published_date.day}}/{{post.slug}}/';  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = '/{{post.published_date.year}}/{{post.published_date.month}}/{{post.published_date.day}}/{{post.slug}}/';
+    this.page.title = "{% set_disqus_title object.headline %}"
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://josegarban.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+    <script id="dsq-count-scr" src="//josegarban.disqus.com/count.js" async></script>
+
     <p>
-      {% with comments.count as total_comments %}
-        <h2>
-          {{ total_comments }} comment{{ total_comments|pluralize }}
-        </h2>
-      {% endwith %}
+      <h2>Similar posts</h2>
+      {% for post in similar_posts %}
+        <p>
+          <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+        </p>
+      {% empty %}
+        There are no similar posts yet.
+      {% endfor %}
     </p>
 
-    <p>
-      {% for comment in comments %}
-        <div class="comment">
-          <p class="info">
-            Comment {{ forloop.counter }} by {{ comment.name }}
-            {{ comment.created }}
-          </p>
-            {{ comment.body|linebreaks }}
-          </div>
-      {% empty %}
-          <p>There are no comments yet.</p>
-      {% endfor %}
-      </p>
-
-      {% if user.is_authenticated %}
-        <p>
-          {% if new_comment %}
-            <h2>Your comment has been added.</h2>
-          {% else %}
-            <h2>Add a new comment</h2>
-            <form action="." method="post">
-              {{ comment_form.as_p }}
-              {% csrf_token %}
-              <p><input type="submit" value="Add comment"></p>
-            </form>
-          {% endif %}
-        </p>
-      {% endif %}
-
-      <p>
-        <h2>Similar posts</h2>
-        {% for post in similar_posts %}
-          <p>
-            <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-          </p>
-        {% empty %}
-          There are no similar posts yet.
-        {% endfor %}
-      </p>
-
-    </div>
+  </div>
 {% endblock %}
