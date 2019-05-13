@@ -44,10 +44,21 @@ body{
   background-color: #faf4c8;
   margin: 8rem 1.5rem;
 }
+
 .post {
   border: 1rem #020533 ;
   margin: 3rem 0;
   /* Custom */
+}
+
+figure {
+  max-width: 100%;
+  object-fit: contain;
+}
+
+figure img {
+  max-width: 100%;
+  object-fit: contain;
 }
 
 .post-list-post-title {
