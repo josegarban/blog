@@ -75,7 +75,8 @@ body{
 
 .self-portrait img{
   /* Custom */
-  height: 10rem;
+  margin-top: 3.5rem;
+  height: 20rem;
   width: auto;
 }
 
@@ -90,7 +91,7 @@ body{
 
 .about-p{
   /* Custom */
-  margin: 2rem 0;
+  margin: 2rem 2rem;
 }
 
 /* Bootstrap Classes */
