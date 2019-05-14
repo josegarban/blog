@@ -2,21 +2,21 @@ from django.db import models
 from django.db.models import Count
 from django.core.mail import send_mail
 from django.core.paginator import EmptyPage, Paginator, PageNotAnInteger
-from django.shortcuts import redirect, render, get_object_or_404 
+from django.shortcuts import redirect, render, get_object_or_404
 from django.utils import timezone
 from taggit.models import Tag
 from .forms import CommentForm, EmailPostForm, PostForm
 from .models import Comment, Post
-from . import readcredentials
+from mysite.readcredentials import readcredentials
 
 def post_list(request, tag_slug=None):
     object_list = Post.publishedobjects.order_by('published_date')
-    
+
     tag = None
     if tag_slug:
         tag         = get_object_or_404 (Tag, slug=tag_slug)
         object_list = object_list.filter(tags__in=[tag])
-    
+
     paginator = Paginator(object_list, 5) # posts per page
     page = request.GET.get('page') # current page number
     try:
@@ -27,7 +27,7 @@ def post_list(request, tag_slug=None):
     except EmptyPage:
         # If page is out of range deliver last page of results
         posts = paginator.page(paginator.num_pages)
-    
+
     return render(request,
                   'blog/post_list.html',
                   {'page' : page,
@@ -40,10 +40,10 @@ def post_detail(request, year, month, day, post):
                              published_date__year=year,
                              published_date__month=month,
                              published_date__day=day)
-    
+
     # List of active comments for this post
     comments = post.comments.filter(active=True)
-    
+
     new_comment = None
     if request.method == 'POST': # A comment was posted
         comment_form = CommentForm(data=request.POST)
@@ -53,7 +53,7 @@ def post_detail(request, year, month, day, post):
             new_comment.save()        # Save the comment to the database
     else:
         comment_form = CommentForm()
-    
+
     # List of similar posts
     post_tags_ids = post.tags.values_list('id', flat=True)
     similar_posts = Post.objects .filter(status='published'
@@ -69,7 +69,7 @@ def post_detail(request, year, month, day, post):
                    'new_comment'  : new_comment,
                    'comment_form' : comment_form,
                    'similar_posts': similar_posts})
-    
+
 
 def post_edit(request, year, month, day, post):
     post = get_object_or_404(Post, slug=post,
@@ -118,13 +118,13 @@ def post_share(request, post_id):
                              id=post_id,
                              status='published')
     sent = False
-    
+
     if request.method == 'POST': # Form submitted
         form = EmailPostForm(request.POST)
         if form.is_valid():
             cleaneddata = form.cleaned_data
             post_url = request.build_absolute_uri(post.get_absolute_url())
-            
+
             subject = '{} ({}) recommends you reading "{}"'.format(cleaneddata['name'],
                                                                    cleaneddata['email'],
                                                                    post.title,)
@@ -134,10 +134,10 @@ def post_share(request, post_id):
                                                                     cleaneddata['comments'],)
             send_mail(subject,
                       message,
-                      readcredentials.readcredentials()[1],
+                      readcredentials()[1],
                       [cleaneddata['to']])
             sent = True
-            
+
     else:
         form = EmailPostForm()
     return render(request,
