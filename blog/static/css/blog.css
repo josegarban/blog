@@ -14,7 +14,7 @@ header {
   top: 0;
   width: 100%;
   z-index: 10;
-  border-bottom: 5px solid #faf4c8;
+  border-bottom: 5px solid white;
 
   display: flex;
   align-items: center;
@@ -40,9 +40,35 @@ header span {
   /* Custom */
 }
 
+header a:hover {
+  color: white;
+  text-decoration: none;
+  transition: color 500ms;
+  /* Custom */
+}
+
+body a:hover {
+  text-decoration: none;
+  transition: color 500ms;
+  /* Custom */
+}
+
+
+.post-list-post-title:hover {
+  text-decoration: none;
+  transition: color 250ms;
+  /* Custom */
+}
+
 body{
-  background-color: #faf4c8;
+  background-color: white;
   margin: 8rem 1.5rem;
+  font-size: 1.5rem;
+  line-height: 2.5rem;
+}
+
+body p, body ol, body ul {
+  margin-bottom: 2.5rem;
 }
 
 .post {
@@ -73,13 +99,30 @@ figure img {
 
 .date-inlist {
   margin-top: 3.25rem;
+  text-align: right;
+  padding-right: 4rem;
   /* Custom - Side panels in list */
 }
 
 .date-inpost {
   margin-top: 4.25rem;
+  text-align: right;
+  padding-right: 4rem;
   /* Custom - Side panels in posts */
 }
+
+@media print, screen and (max-width: 600px) {
+  .date-inlist {
+    text-align: left;
+    /* Custom - Side panels in list */
+  }
+
+  .date-inpost {
+    text-align: left;
+    /* Custom - Side panels in posts */
+  }
+}
+
 
 .similar {
   margin-top: 3.5rem;
@@ -133,9 +176,4 @@ figure img {
 
 .page-header{
   border: none;
-}
-
-@media print, screen and (max-width: 600px) {
-
-
 }
