@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="col-md-7">
-      <div class="post">
+      <article class="post">
         <h2>{{ post.title }}</h2>
         <p class="tags">Tags:
           {% for tag in post.tags.all %}
@@ -37,7 +37,9 @@
         <p>
           <a href="{% url "blog:post_share" post.id %}">Share this post via e-mail</a>
         </p>
+      </article>
 
+      <div class="comments">
         <div id="disqus_thread"></div>
         <script>
 
@@ -46,9 +48,9 @@
         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
         var disqus_config = function () {
-        this.page.url = 'https://josegarban.pythonanywhere.com/blog/{{post.published_date.year}}/{{post.published_date.month}}/{{post.published_date.day}}/{{post.slug}}/';  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = '/{{post.published_date.year}}/{{post.published_date.month}}/{{post.published_date.day}}/{{post.slug}}/';
-        this.page.title = "{{post.title}}";
+          this.page.url = 'https://josegarban.pythonanywhere.com/blog/{{post.published_date.year}}/{{post.published_date.month}}/{{post.published_date.day}}/{{post.slug}}/';  // Replace PAGE_URL with your page's canonical URL variable
+          this.page.identifier = '/{{post.published_date.year}}/{{post.published_date.month}}/{{post.published_date.day}}/{{post.slug}}/';
+          this.page.title = "{{post.title}}";
         };
 
         (function() { // DON'T EDIT BELOW THIS LINE
@@ -63,22 +65,22 @@
         <script id="dsq-count-scr" src="//josegarban.disqus.com/count.js" async></script>
 
       </div>
+
     </div>
 
     <div class="col-md-3">
-      <div class="similar">
+      <aside class="similar">
         <h3>Similar posts</h3>
         {% for post in similar_posts %}
         <p><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></p>
         {% empty %}
         <p>There are no similar posts yet.</p>
         {% endfor %}
-      </div>
+      </aside>
     </div>
     <div class="col-md-1">
     </div>
   </div>
 </div>
-
 
 {% endblock %}
