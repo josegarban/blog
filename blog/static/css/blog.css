@@ -67,7 +67,6 @@ figure img {
 }
 
 .date-inlist {
-  margin-left: 2rem;
   margin-top: 3.25rem;
   /* Custom - Side panels in list */
 }
@@ -120,4 +119,9 @@ figure img {
 
 .page-header{
   border: none;
+}
+
+@media print, screen and (max-width: 600px) {
+
+
 }
