@@ -25,10 +25,10 @@ class Post(models.Model):
                             unique_for_date='published_date'
                             )
     tags = TaggableManager()
-    
-    objects = models.Manager() 
-    publishedobjects = PublishedManager() 
-    
+
+    objects = models.Manager()
+    publishedobjects = PublishedManager()
+
     STATUS_CHOICES = (
         ('draft', 'Draft'),
         ('published', 'Published'),
@@ -36,16 +36,16 @@ class Post(models.Model):
     status = models.CharField(max_length=10,
                               choices=STATUS_CHOICES,
                               default='draft')
-    
+
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title) # Convert the title into a slug
         super(Post, self).save(*args, **kwargs)
-    
+
     def publish(self):
         self.published_date = timezone.now()
         self.save()
-    
+
     def get_absolute_url(self):
         return reverse('blog:post_detail',
                        args=[self.published_date.year,
@@ -59,8 +59,8 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
-    
-class Comment(models.Model):
+
+class Comment(models.Model): #Not used in this version
     post    = models.ForeignKey   (Post,
                                    on_delete=models.CASCADE,
                                    related_name='comments')
@@ -73,6 +73,6 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ('created',)
-    
+
     def __str__(self):
         return 'Comment by {} on {}'.format(self.name, self.post)
