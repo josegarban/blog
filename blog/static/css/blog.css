@@ -61,7 +61,12 @@ figure img {
   object-fit: contain;
 }
 
+.post-title {
+  font-family: 'Arvo', sans-serif;
+}
+
 .post-list-post-title {
+  font-family: 'Arvo', sans-serif;
   color: #020533;
   /* Custom */
 }
@@ -79,6 +84,15 @@ figure img {
 .similar {
   margin-top: 3.5rem;
   /* Custom - Side panels in posts */
+}
+
+.date-container{
+  /* Custom - Dates in posts */
+}
+
+.no-padding{
+  padding = 0;
+  /* Custom - Dates in posts */
 }
 
 /* About Classes */

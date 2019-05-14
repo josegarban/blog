@@ -4,12 +4,14 @@
 
 <html>
   <head>
-    <title>José's blog</title>
+    <title>José Garbán's blog</title>
     <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
     <link rel="stylesheet" href="{% static "css/bootstrap-theme.min.css" %}">
     <link rel="stylesheet" href="{% static "css/blog.css" %}">
     <link rel="stylesheet" href="{% static "css/prism.css" %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arvo">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script type="text/javascript" src="{% static "js/prism.js" %}"></script>
     <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
@@ -19,7 +21,7 @@
 
   <header>
     <div class="header-left">
-      <h1 ><a class="header-title" href="{% url 'blog:post_list'%}">This is José's blog!</a> </h1>
+      <h1 ><a class="header-title" href="{% url 'blog:post_list'%}">José' Garbán's blog</a> </h1>
     </div>
     <div class="header-right">
       <span><a href="{% url 'blog:about' %}" class="header-anchor">About me</a></span>
