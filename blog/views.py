@@ -13,11 +13,16 @@ from haystack.query import SearchQuerySet
 
 def post_list(request, tag_slug=None):
     object_list = Post.publishedobjects.order_by('published_date')
+    search_term = ''
 
     tag = None
     if tag_slug:
         tag         = get_object_or_404 (Tag, slug=tag_slug)
         object_list = object_list.filter(tags__in=[tag])
+
+    if 'search' in request.GET:
+        search_term = request.GET['search']
+        object_list = object_list.filter(text__icontains=search_term)
 
     paginator = Paginator(object_list, 5) # posts per page
     page = request.GET.get('page') # current page number
@@ -30,11 +35,13 @@ def post_list(request, tag_slug=None):
         # If page is out of range deliver last page of results
         posts = paginator.page(paginator.num_pages)
 
+    context = { 'page'       : page,
+                'posts'      : posts,
+                'tag'        : tag  ,
+                'search_term': search_term}
     return render(request,
                   'blog/post_list.html',
-                  {'page' : page,
-                   'posts': posts,
-                   'tag' : tag   })
+                  context)
 
 
 def post_detail(request, year, month, day, post):
