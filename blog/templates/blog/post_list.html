@@ -7,12 +7,11 @@
     <div class="col-md-2">
     </div>
     <div class="col-md-8">
-    {% if tag %}
-      <h1>Posts tagged with "{{ tag }}"</h1>
-    {% endif %}
-    {% if user.is_authenticated %}
-    <a href="{% url 'blog:post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"> New post</span></a>
-    {% endif %}
+      {% if tag %}
+        <h1>Posts tagged with "{{ tag }}"</h1>
+      {% else %}
+        <br>
+      {% endif %}
     </div>
   </div>
 
@@ -71,6 +70,10 @@
     </div>
     <div class="col-md-8">
       {% include "blog/pagination.html" with page=posts %}
+      <br>
+      {% if user.is_authenticated %}
+      <a href="{% url 'blog:post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"> New post</span></a>
+      {% endif %}
     </div>
   </div>
 {% endblock %}
