@@ -9,6 +9,8 @@ from .forms import CommentForm, EmailPostForm, PostForm
 from .models import Comment, Post
 from mysite.readcredentials import readcredentials
 
+from haystack.query import SearchQuerySet
+
 def post_list(request, tag_slug=None):
     object_list = Post.publishedobjects.order_by('published_date')
 
@@ -150,3 +152,9 @@ def post_share(request, post_id):
 def about(request):
     return render(request,
                   'blog/about.html')
+
+
+def search_titles(request):
+    articles = SearchQuerySet().autocomplete(content_auto=request.POST.get('search_text',''))
+
+    return render_to_response('search.html', {'articles' : articles})

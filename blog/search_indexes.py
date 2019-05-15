@@ -8,6 +8,8 @@ class PostIndex(indexes.SearchIndex, indexes.Indexable):
     author = indexes.CharField(model_attr='author')
     published_date = indexes.DateTimeField(model_attr='published_date')
 
+    content_auto = indexes.EdgeNgramField(model_attr="title")
+
     def get_model(self):
         return Post
 
